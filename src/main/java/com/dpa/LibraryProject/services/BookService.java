@@ -10,7 +10,9 @@ import com.dpa.LibraryProject.entities.Editorial;
 import com.dpa.LibraryProject.repositories.AuthorRepository;
 import com.dpa.LibraryProject.repositories.BookRepository;
 import com.dpa.LibraryProject.repositories.EditorialRepository;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,5 +45,12 @@ public class BookService {
         book.setAuthor(author);
         
         bookRepository.save(book);
+    }
+    
+    private List<Book> listBooks() {
+        List<Book> books = new ArrayList();
+        books = bookRepository.findAll();
+        
+        return books;
     }
 }
