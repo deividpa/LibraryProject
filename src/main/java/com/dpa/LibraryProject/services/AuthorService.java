@@ -4,7 +4,6 @@
  */
 package com.dpa.LibraryProject.services;
 
-import com.dpa.LibraryProject.entities.Book;
 import java.util.Date;
 import org.springframework.stereotype.Service;
 
