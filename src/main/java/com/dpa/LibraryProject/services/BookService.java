@@ -14,6 +14,7 @@ import jakarta.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,10 +50,39 @@ public class BookService {
         bookRepository.save(book);
     }
     
-    private List<Book> listBooks() {
+    public List<Book> listBooks() {
         List<Book> books = new ArrayList();
         books = bookRepository.findAll();
         
         return books;
     }
+    
+    @Transactional
+    public void updateBook(Long isbn, String titulo, Integer copies, String idAutor, String idEditorial) {
+        Optional<Book> responseBook = bookRepository.findById(isbn);
+        Optional<Author> responseAuthor = authorRepository.findById(idAutor);
+        Optional<Editorial> responseEditorial = editorialRepository.findById(idEditorial);
+        
+        Author author = new Author();
+        Editorial editorial = new Editorial();
+        
+        if(responseAuthor.isPresent()) {
+            author = responseAuthor.get();
+        }
+        
+        if(responseEditorial.isPresent()) {
+            editorial = responseEditorial.get();
+        }
+        
+        if(responseBook.isPresent()) {
+            Book book = responseBook.get();
+            book.setTitle(titulo);
+            book.setAuthor(author);
+            book.setEditorial(editorial);
+            book.setCopies(copies);
+            
+            bookRepository.save(book);
+        }
+        
+    } 
 }
