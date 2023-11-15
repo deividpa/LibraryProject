@@ -1,5 +1,7 @@
 package com.dpa.LibraryProject.repositories;
 
+import com.dpa.LibraryProject.entities.Author;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -7,6 +9,6 @@ import org.springframework.stereotype.Repository;
  * @author David Perez
  */
 @Repository
-public class AuthorRepository {
+public interface AuthorRepository extends JpaRepository<Author, String> {
     
 }
