@@ -3,6 +3,7 @@ package com.dpa.LibraryProject.entities;
 import java.util.Date;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
@@ -19,6 +20,27 @@ public class Book {
     
     @Temporal(TemporalType.DATE)
     private Date regDate;
+    
+    @ManyToOne
+    private Author author;
+    @ManyToOne
+    private Editorial editorial;
+
+    public Author getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
+    }
+
+    public Editorial getEditorial() {
+        return editorial;
+    }
+
+    public void setEditorial(Editorial editorial) {
+        this.editorial = editorial;
+    }
 
     public Book() {
     }
