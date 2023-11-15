@@ -2,6 +2,7 @@ package com.dpa.LibraryProject.services;
 
 import com.dpa.LibraryProject.entities.Editorial;
 import com.dpa.LibraryProject.repositories.EditorialRepository;
+import jakarta.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ public class EditorialService {
     
     Editorial editorial = new Editorial();
     
+    @Transactional
     private void createEditorial(String name) {
         editorial.setName(name);
         editorialRepository.save(editorial);

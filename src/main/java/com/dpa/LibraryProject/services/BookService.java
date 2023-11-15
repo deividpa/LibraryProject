@@ -10,6 +10,7 @@ import com.dpa.LibraryProject.entities.Editorial;
 import com.dpa.LibraryProject.repositories.AuthorRepository;
 import com.dpa.LibraryProject.repositories.BookRepository;
 import com.dpa.LibraryProject.repositories.EditorialRepository;
+import jakarta.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -31,6 +32,7 @@ public class BookService {
     @Autowired
     private EditorialRepository editorialRepository;
     
+    @Transactional
     public void createBook(Long isbn, String title, Integer copies, String idAuthor, String idEditorial) {
         
         Author author = authorRepository.findById(idAuthor).get();

@@ -2,6 +2,7 @@ package com.dpa.LibraryProject.services;
 
 import com.dpa.LibraryProject.entities.Author;
 import com.dpa.LibraryProject.repositories.AuthorRepository;
+import jakarta.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ public class AuthorService {
     @Autowired
     private AuthorRepository authorRepository;
     
+    @Transactional
     private void createAuthor(String name) {
         Author author = new Author();
         
