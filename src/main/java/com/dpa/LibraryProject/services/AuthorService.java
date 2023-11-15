@@ -1,10 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.dpa.LibraryProject.services;
 
-import java.util.Date;
+import com.dpa.LibraryProject.entities.Author;
+import com.dpa.LibraryProject.repositories.AuthorRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,4 +13,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthorService {
     
+    @Autowired
+    private AuthorRepository authorRepository;
+    
+    private void createAuthor(String name) {
+        Author author = new Author();
+        
+        author.setName(name);
+        authorRepository.save(author);
+    }
 }

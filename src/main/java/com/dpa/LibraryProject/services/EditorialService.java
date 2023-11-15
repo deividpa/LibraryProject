@@ -1,9 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.dpa.LibraryProject.services;
 
+import com.dpa.LibraryProject.entities.Editorial;
+import com.dpa.LibraryProject.repositories.EditorialRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,4 +12,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class EditorialService {
     
+    @Autowired
+    private EditorialRepository editorialRepository;
+    
+    Editorial editorial = new Editorial();
+    
+    private void createEditorial(String name) {
+        editorial.setName(name);
+        editorialRepository.save(editorial);
+    }
 }
