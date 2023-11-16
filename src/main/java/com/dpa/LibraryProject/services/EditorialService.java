@@ -1,6 +1,7 @@
 package com.dpa.LibraryProject.services;
 
 import com.dpa.LibraryProject.entities.Editorial;
+import com.dpa.LibraryProject.exceptions.MyException;
 import com.dpa.LibraryProject.repositories.EditorialRepository;
 import jakarta.transaction.Transactional;
 import java.util.ArrayList;
@@ -19,10 +20,13 @@ public class EditorialService {
     @Autowired
     private EditorialRepository editorialRepository;
     
-    Editorial editorial = new Editorial();
-    
     @Transactional
-    public void createEditorial(String name) {
+    public void createEditorial(String name) throws MyException {
+        if(name==null || name.isEmpty()) {
+            throw new MyException("El campo name no puede ser nulo o vacío");
+        }
+            
+        Editorial editorial = new Editorial();
         editorial.setName(name);
         editorialRepository.save(editorial);
     }
@@ -35,7 +39,9 @@ public class EditorialService {
     }
     
     @Transactional
-    public void updateEditorial(String id, String name) {
+    public void updateEditorial(String id, String name) throws MyException {
+        validate(id, name);
+        
         Optional<Editorial> responseEditorial = editorialRepository.findById(id);
         
         if(responseEditorial.isPresent()) {
@@ -43,6 +49,17 @@ public class EditorialService {
             editorial.setName(name);
             
             editorialRepository.save(editorial);
+        }
+    }
+    
+    private void validate(String id, String name) throws MyException {
+        //Validations
+        if(id==null || id.isEmpty()) {
+            throw new MyException("El campo id no puede ser nulo o vacío");
+        }
+        
+        if(name==null || name.isEmpty()) {
+            throw new MyException("El campo name no puede ser nulo o vacío");
         }
     }
 }

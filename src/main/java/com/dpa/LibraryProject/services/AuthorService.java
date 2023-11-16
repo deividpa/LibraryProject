@@ -1,6 +1,7 @@
 package com.dpa.LibraryProject.services;
 
 import com.dpa.LibraryProject.entities.Author;
+import com.dpa.LibraryProject.exceptions.MyException;
 import com.dpa.LibraryProject.repositories.AuthorRepository;
 import jakarta.transaction.Transactional;
 import java.util.ArrayList;
@@ -21,7 +22,11 @@ public class AuthorService {
     private AuthorRepository authorRepository;
     
     @Transactional
-    public void createAuthor(String name) {
+    public void createAuthor(String name) throws MyException {
+        if(name==null || name.isEmpty()) {
+            throw new MyException("El campo name no puede ser nulo o vacío");
+        }
+       
         Author author = new Author();
         
         author.setName(name);
@@ -43,6 +48,17 @@ public class AuthorService {
             author.setName(name);
             
             authorRepository.save(author);
+        }
+    }
+    
+    private void validate(String id, String name) throws MyException {
+        //Validations
+        if(id==null || id.isEmpty()) {
+            throw new MyException("El campo id no puede ser nulo o vacío");
+        }
+        
+        if(name==null || name.isEmpty()) {
+            throw new MyException("El campo name no puede ser nulo o vacío");
         }
     }
 }

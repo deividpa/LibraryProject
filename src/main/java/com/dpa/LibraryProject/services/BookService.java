@@ -7,6 +7,7 @@ package com.dpa.LibraryProject.services;
 import com.dpa.LibraryProject.entities.Author;
 import com.dpa.LibraryProject.entities.Book;
 import com.dpa.LibraryProject.entities.Editorial;
+import com.dpa.LibraryProject.exceptions.MyException;
 import com.dpa.LibraryProject.repositories.AuthorRepository;
 import com.dpa.LibraryProject.repositories.BookRepository;
 import com.dpa.LibraryProject.repositories.EditorialRepository;
@@ -34,11 +35,14 @@ public class BookService {
     private EditorialRepository editorialRepository;
     
     @Transactional
-    public void createBook(Long isbn, String title, Integer copies, String idAuthor, String idEditorial) {
+    public void createBook(Long isbn, String title, Integer copies, String idAuthor, String idEditorial) throws MyException {
+        
+        validate(isbn, title, copies, idAuthor, idEditorial);
+        
+        Book book = new Book();
         
         Author author = authorRepository.findById(idAuthor).get();
         Editorial editorial = editorialRepository.findById(idEditorial).get();
-        Book book = new Book();
         
         book.setIsbn(isbn);
         book.setTitle(title);
@@ -58,9 +62,12 @@ public class BookService {
     }
     
     @Transactional
-    public void updateBook(Long isbn, String titulo, Integer copies, String idAutor, String idEditorial) {
+    public void updateBook(Long isbn, String title, Integer copies, String idAuthor, String idEditorial) throws MyException {
+        
+        validate(isbn, title, copies, idAuthor, idEditorial);
+        
         Optional<Book> responseBook = bookRepository.findById(isbn);
-        Optional<Author> responseAuthor = authorRepository.findById(idAutor);
+        Optional<Author> responseAuthor = authorRepository.findById(idAuthor);
         Optional<Editorial> responseEditorial = editorialRepository.findById(idEditorial);
         
         Author author = new Author();
@@ -76,7 +83,7 @@ public class BookService {
         
         if(responseBook.isPresent()) {
             Book book = responseBook.get();
-            book.setTitle(titulo);
+            book.setTitle(title);
             book.setAuthor(author);
             book.setEditorial(editorial);
             book.setCopies(copies);
@@ -85,4 +92,28 @@ public class BookService {
         }
         
     } 
+    
+    private void validate(Long isbn, String title, Integer copies, String idAuthor, String idEditorial) throws MyException {
+        //Validations
+        if(isbn==null) {
+            throw new MyException("El campo isbn no puede ser nulo");
+        }
+        
+        if(title==null || title.isEmpty()) {
+            throw new MyException("El campo title no puede ser nulo o vacio");
+        }
+        
+        if(copies==null || copies<0) {
+            throw new MyException("El campo copies no puede ser nulo o un número menor que cero");
+        }
+        
+        if(idAuthor==null || idAuthor.isEmpty()) {
+            throw new MyException("El campo idAuthor no puede ser nulo o vacío");
+
+        }
+        
+        if(idEditorial==null || idEditorial.isEmpty()) {
+            throw new MyException("El campo idEditorial no puede ser nulo o vacío");
+        }
+    }
 }
