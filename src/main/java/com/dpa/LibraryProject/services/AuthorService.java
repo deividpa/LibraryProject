@@ -40,7 +40,10 @@ public class AuthorService {
         return authors;
     }
     
-    public void updateAuthor(String id, String name) {
+    public void updateAuthor(String id, String name) throws MyException {
+        
+        validate(id, name);
+        
         Optional<Author> responseAuthor = authorRepository.findById(id);
         
         if(responseAuthor.isPresent()) {
@@ -49,6 +52,11 @@ public class AuthorService {
             
             authorRepository.save(author);
         }
+    }
+    
+    public Author getOne(String id) {
+        return authorRepository.getOne(id);
+        
     }
     
     private void validate(String id, String name) throws MyException {
