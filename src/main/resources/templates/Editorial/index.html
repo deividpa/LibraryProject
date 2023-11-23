@@ -18,5 +18,19 @@
             <h5 class="card-title">Error:</h5>
             <p class="card-text" th:text="${error}"></p>
         </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                </tr>
+            </thead>
+            <tbody th:each="editorial : ${editorials}">
+                <tr>
+                    <th scope="row" th:text="${editorial.id}"></th>
+                    <td th:text="${editorial.name}"></td>
+                </tr>
+            </tbody>
+        </table>
     </body>
 </html>

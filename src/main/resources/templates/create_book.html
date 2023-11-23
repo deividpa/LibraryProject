@@ -36,9 +36,9 @@
             <div class="form-group my-3">
                 <select name="idEditorial">
                     <option>Seleccionar Editorial</option>
-                    <option th:each="editorial : ${editoriales}"
+                    <option th:each="editorial : ${editorials}"
                             th:value="${editorial.id}" 
-                            th:text="${editorial.nombre}"
+                            th:text="${editorial.name}"
                             />
                 </select>
             </div>
