@@ -1,7 +1,9 @@
 package com.dpa.LibraryProject.controllers;
 
+import com.dpa.LibraryProject.entities.Editorial;
 import com.dpa.LibraryProject.exceptions.MyException;
 import com.dpa.LibraryProject.services.EditorialService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -34,6 +36,17 @@ public class EditorialController {
             model.put("error", "There was an error creating the new Editorial!");
             return "Editorial/create.html";
         }
+        List<Editorial> editorials = editorialService.listEditorials();
+        model.addAttribute("editorials", editorials);
+        
+        return "Editorial/index.html";
+    }
+    
+    @GetMapping("/index")
+    public String list(ModelMap model) {
+        List<Editorial> editorials = editorialService.listEditorials();
+        model.addAttribute("editorials", editorials);
+        
         return "Editorial/index.html";
     }
 }

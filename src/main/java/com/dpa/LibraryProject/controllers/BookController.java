@@ -1,6 +1,7 @@
 package com.dpa.LibraryProject.controllers;
 
 import com.dpa.LibraryProject.entities.Author;
+import com.dpa.LibraryProject.entities.Book;
 import com.dpa.LibraryProject.entities.Editorial;
 import com.dpa.LibraryProject.exceptions.MyException;
 import com.dpa.LibraryProject.services.AuthorService;
@@ -50,7 +51,9 @@ public class BookController {
         } catch(MyException MyEx) {
             List<Author> authors = authorService.listAuthors();
             List<Editorial> editorials = editorialService.listEditorials();
-
+            List<Book> books = bookService.listBooks();
+            
+            model.addAttribute("books", books);
             model.addAttribute("authors", authors);
             model.addAttribute("editorials", editorials);
             
@@ -58,6 +61,14 @@ public class BookController {
             return "create_book.html";
         }
 
-        return "index.html";
+        return "Book/index.html";
+    }
+    
+    @GetMapping("/index")
+    public String list(ModelMap model) {
+        List<Book> books = bookService.listBooks();
+        model.addAttribute("books", books);
+        
+        return "Book/index.html";
     }
 }
