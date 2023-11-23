@@ -1,9 +1,12 @@
 package com.dpa.LibraryProject.controllers;
 
+import com.dpa.LibraryProject.entities.Author;
+import com.dpa.LibraryProject.entities.Editorial;
 import com.dpa.LibraryProject.exceptions.MyException;
 import com.dpa.LibraryProject.services.AuthorService;
 import com.dpa.LibraryProject.services.BookService;
 import com.dpa.LibraryProject.services.EditorialService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -27,7 +30,12 @@ public class BookController {
     private EditorialService editorialService;
     
     @GetMapping("/create")
-    public String crear() {
+    public String crear(ModelMap model) {
+        List<Author> authors = authorService.listAuthors();
+        List<Editorial> editorials = editorialService.listEditorials();
+        
+        model.addAttribute("authors", authors);
+        model.addAttribute("editorials", editorials);
         return "create_book.html";
     }
     
@@ -40,6 +48,12 @@ public class BookController {
             bookService.createBook(isbn, title, copies, idAuthor, idEditorial);
             model.put("success", "The book was created successfully!");
         } catch(MyException MyEx) {
+            List<Author> authors = authorService.listAuthors();
+            List<Editorial> editorials = editorialService.listEditorials();
+
+            model.addAttribute("authors", authors);
+            model.addAttribute("editorials", editorials);
+            
             model.put("error", MyEx.getMessage());
             return "create_book.html";
         }
