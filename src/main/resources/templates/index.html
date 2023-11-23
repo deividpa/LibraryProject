@@ -1,12 +1,26 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" 
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
     <head>
         <title>Inicio</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     </head>
     <body>
         <h1>Bienvenido a la librería</h1>
-        <div></div>
+        <div th:if="${error != null}" class="card text-white bg-success mb-3 errorMessage">
+            <div>
+                    <h5 class="card-title">Error!</h5>
+                    <p class="card-text" th:text="${error}"></p>
+                </div> 
+        </div>
+        <div th:if="${success != null}" class="card text-white bg-success mb-3 successMessage">
+            <div>
+                <h5 class="card-title">Success!!</h5>
+                <p class="card-text" th:text="${success}"></p>
+            </div> 
+        </div>
     </body>
 </html>
