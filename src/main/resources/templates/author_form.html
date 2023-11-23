@@ -13,10 +13,12 @@
             </div>
         </header>
         <section class="container">
-            <form action="/author/signup" method="POST">
+            <form action="/author/create" method="POST">
                 <div class="form-group">
                     <label for="name">Author's name:</label>
-                    <input type="text" name="name" id="name" placeholder="Insert the name..." />
+                    <input type="text" name="name" id="name" placeholder="Insert the Name..." />
+                    <label for="name">Author's last name:</label>
+                    <input type="text" name="lastName" id="lastName" placeholder="Insert the Last Name..." />
                     <button type="submit" class="btn btn-primary">Submit Author</button>
                 </div>
             </form>
