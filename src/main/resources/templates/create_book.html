@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+ <html xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:th="http://www.thymeleaf.org"
+          xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+    <title>Create a New Book</title>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Book Information</h2>
+        <form action="/book/creating" method="POST">
+            <div class="form-group">
+                <label for="isbn">ISBN</label>
+                <input type="number" class="form-control" name="isbn" placeholder="Enter ISBN">
+            </div>
+            <div class="form-group">
+                <label for="copies">Copies</label>
+                <input type="number" class="form-control" name="copies" placeholder="Enter Copies" min="1">
+            </div>
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" class="form-control" name="title" placeholder="Enter Title">
+            </div>
+            <div class="form-group my-3">
+                <select name="idAuthor">
+                    <option>Seleccionar Autor</option>
+                    <option th:each="author : ${authors}"
+                            th:value="${author.id}" 
+                            th:text="${author.name}"
+                            />
+                </select>
+            </div>
+            <div class="form-group my-3">
+                <select name="idEditorial">
+                    <option>Seleccionar Editorial</option>
+                    <option th:each="editorial : ${editoriales}"
+                            th:value="${editorial.id}" 
+                            th:text="${editorial.nombre}"
+                            />
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            
+            <div th:if="${error != null}" class="card text-white bg-danger mb-3 errorMessage">
+                <div>
+                    <h5 class="card-title">Error</h5>
+                    <p class="card-text" th:text="${error}"></p>
+                </div> 
+            </div> 
+            <div th:if="${success != null}" class="card text-white bg-success mb-3 successMessage">
+                <div>
+                    <h5 class="card-title">Success!</h5>
+                    <p class="card-text" th:text="${success}"></p>
+                </div> 
+            </div> 
+        </form>
+    </div>
+</body>
+</html>
